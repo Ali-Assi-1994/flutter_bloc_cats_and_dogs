@@ -15,8 +15,8 @@ class PetsBloc extends Bloc<PetsEvents, PetsState> {
             isLoading: true,
           ),
         ),
-
         /// call api
+      petsRepository
       },
     );
   }

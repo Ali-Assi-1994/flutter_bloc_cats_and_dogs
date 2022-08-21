@@ -1,7 +1,14 @@
 import 'package:dogs_and_cats/src/data_layer/pets_repository/pets_service.dart';
 
 abstract class PetsRepository {
-  final PetsService service;
+  PetsRepository();
 
-  const PetsRepository({required this.service});
+  late String url;
+  late PetsService service = PetsService(url: url);
+}
+
+class DogsRepo extends PetsRepository {
+  DogsRepo() {
+    url = 'dogsUrl';
+  }
 }

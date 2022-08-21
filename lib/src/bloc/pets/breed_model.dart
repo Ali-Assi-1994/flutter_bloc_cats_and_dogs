@@ -1,5 +1,5 @@
-class BreedModel {
-  BreedModel({
+class Breed {
+  Breed({
     this.weight,
     this.id,
     this.name,
@@ -77,7 +77,7 @@ class BreedModel {
   String? referenceImageId;
   int? lap;
 
-  BreedModel copyWith({
+  Breed copyWith({
     Weight? weight,
     String? id,
     String? name,
@@ -116,7 +116,7 @@ class BreedModel {
     String? referenceImageId,
     int? lap,
   }) =>
-      BreedModel(
+      Breed(
         weight: weight ?? this.weight,
         id: id ?? this.id,
         name: name ?? this.name,
@@ -156,7 +156,7 @@ class BreedModel {
         lap: lap ?? this.lap,
       );
 
-  factory BreedModel.fromJson(Map<String, dynamic> json) => BreedModel(
+  factory Breed.fromJson(Map<String, dynamic> json) => Breed(
         weight: json["weight"] == null ? null : Weight.fromJson(json["weight"]),
         id: json["id"],
         name: json["name"],

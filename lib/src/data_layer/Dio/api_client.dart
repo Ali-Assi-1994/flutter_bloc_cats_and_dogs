@@ -5,19 +5,17 @@ import 'package:dio/dio.dart';
 import 'api.dart';
 
 class ApiClient {
-  static ApiClient? _instance;
+  final String baseUrl;
 
-  factory ApiClient() => _instance ??= ApiClient._();
-
-  ApiClient._();
+  ApiClient({required this.baseUrl}) {
+    initDio();
+  }
 
   late Dio _dio;
 
-  Dio get dio => _dio;
-
   void initDio() {
     BaseOptions options = BaseOptions(
-      // baseUrl: AppConstants.baseURL,
+      baseUrl: baseUrl,
       contentType: 'application/json',
       followRedirects: false,
       validateStatus: (status) {
