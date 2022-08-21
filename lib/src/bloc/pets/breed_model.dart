@@ -1,6 +1,7 @@
 class Breed {
   Breed({
     this.weight,
+    this.height,
     this.id,
     this.name,
     this.cfaUrl,
@@ -37,9 +38,12 @@ class Breed {
     this.hypoallergenic,
     this.referenceImageId,
     this.lap,
+    this.bredFor,
+    this.breedGroup,
   });
 
   Weight? weight;
+  Weight? height;
   String? id;
   String? name;
   String? cfaUrl;
@@ -76,9 +80,12 @@ class Breed {
   int? hypoallergenic;
   String? referenceImageId;
   int? lap;
+  String? bredFor;
+  String? breedGroup;
 
   Breed copyWith({
     Weight? weight,
+    Weight? height,
     String? id,
     String? name,
     String? cfaUrl,
@@ -115,9 +122,12 @@ class Breed {
     int? hypoallergenic,
     String? referenceImageId,
     int? lap,
+    String? breedGroup,
+    String? bredFor,
   }) =>
       Breed(
         weight: weight ?? this.weight,
+        height: height ?? this.height,
         id: id ?? this.id,
         name: name ?? this.name,
         cfaUrl: cfaUrl ?? this.cfaUrl,
@@ -154,10 +164,13 @@ class Breed {
         hypoallergenic: hypoallergenic ?? this.hypoallergenic,
         referenceImageId: referenceImageId ?? this.referenceImageId,
         lap: lap ?? this.lap,
+        bredFor: bredFor ?? this.bredFor,
+        breedGroup: breedGroup ?? this.breedGroup,
       );
 
   factory Breed.fromJson(Map<String, dynamic> json) => Breed(
         weight: json["weight"] == null ? null : Weight.fromJson(json["weight"]),
+        height: json["height"] == null ? null : Weight.fromJson(json["height"]),
         id: json["id"],
         name: json["name"],
         cfaUrl: json["cfa_url"],
@@ -194,6 +207,8 @@ class Breed {
         hypoallergenic: json["hypoallergenic"],
         referenceImageId: json["reference_image_id"],
         lap: json["lap"],
+        bredFor: json["bredFor"],
+        breedGroup: json["breedGroup"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -234,6 +249,8 @@ class Breed {
         "hypoallergenic": hypoallergenic,
         "reference_image_id": referenceImageId,
         "lap": lap,
+        "bredFor": bredFor,
+        "breedGroup": breedGroup,
       };
 }
 
