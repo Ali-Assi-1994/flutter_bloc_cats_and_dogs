@@ -26,3 +26,10 @@ class DogsRepo extends PetsRepository {
     apiKey = Constants.dogApiKey;
   }
 }
+
+class CatsRepo extends PetsRepository {
+  CatsRepo() {
+    baseUrl = 'https://api.thecatapi.com/';
+    apiKey = Constants.catApiKey;
+  }
+}
