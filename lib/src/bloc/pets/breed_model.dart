@@ -44,7 +44,7 @@ class Breed {
 
   Weight? weight;
   Weight? height;
-  String? id;
+  int? id;
   String? name;
   String? cfaUrl;
   String? vetstreetUrl;
@@ -86,7 +86,7 @@ class Breed {
   Breed copyWith({
     Weight? weight,
     Weight? height,
-    String? id,
+    int? id,
     String? name,
     String? cfaUrl,
     String? vetstreetUrl,

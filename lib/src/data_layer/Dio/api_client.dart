@@ -6,8 +6,12 @@ import 'api.dart';
 
 class ApiClient {
   final String baseUrl;
+  final String apiKey;
 
-  ApiClient({required this.baseUrl}) {
+  ApiClient({
+    required this.baseUrl,
+    required this.apiKey,
+  }) {
     initDio();
   }
 
@@ -23,6 +27,7 @@ class ApiClient {
       },
       headers: {
         Headers.acceptHeader: "application/json",
+        'x-api-key': apiKey,
       },
     );
     _dio = Dio(options);
@@ -54,8 +59,8 @@ class ApiClient {
   Future<ApiResult> get({required String url, Options? options, Map<String, dynamic>? queryParameters, CancelToken? cancelToken}) async {
     try {
       final response = await _dio.get(url, queryParameters: queryParameters, cancelToken: cancelToken).timeout(const Duration(seconds: 15));
-      if (response.data['code'] == 200) {
-        return ApiResult.successFromJson(response.data);
+      if (response.data != null) {
+        return ApiResult.successFromJson({'data': response.data});
       } else {
         return ApiResult.failureFromJson(response.data);
       }

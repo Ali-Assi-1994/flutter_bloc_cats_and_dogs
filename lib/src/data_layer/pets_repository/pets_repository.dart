@@ -1,14 +1,28 @@
+import 'package:dogs_and_cats/src/bloc/pets/pet_model.dart';
+import 'package:dogs_and_cats/src/data_layer/Dio/api.dart';
 import 'package:dogs_and_cats/src/data_layer/pets_repository/pets_service.dart';
+import 'package:dogs_and_cats/src/utils/constants.dart';
 
-abstract class PetsRepository {
+class PetsRepository {
   PetsRepository();
 
-  late String url;
-  late PetsService service = PetsService(url: url);
+  late String baseUrl;
+  late String apiKey;
+  late PetsService service = PetsService(baseUrl: baseUrl, apiKey: apiKey);
+
+  Future<List<dynamic>?> loadListOfPets() async {
+    ApiResult result = await service.loadListOfPets();
+    if (result.type == ApiResultType.success) {
+      return result.data.map((i) => Pet.fromJson(i)).toList();
+    } else {
+      throw result.errorMessage;
+    }
+  }
 }
 
 class DogsRepo extends PetsRepository {
   DogsRepo() {
-    url = 'dogsUrl';
+    baseUrl = 'https://api.thedogapi.com/';
+    apiKey = Constants.dogApiKey;
   }
 }

@@ -17,8 +17,8 @@ class ApiResult<T> {
   factory ApiResult.fromJson(Map<String, dynamic> json, ApiResultType resultType) => ApiResult(
         type: resultType,
         data: json["data"],
-        error: json["error"],
-        message: json["message"],
+        // error: json["error"],
+        // message: json["message"],
       );
 
   String get errorMessage => message ?? 'error';
