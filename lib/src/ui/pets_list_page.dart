@@ -14,10 +14,16 @@ class PetsListPage<T extends PetsBloc> extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<T>().add(const LoadPetsListEvent());
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read<T>().add(const LoadPetsListEvent());
+        },
+        child: const Icon(Icons.add),
+      ),
       body: BlocBuilder<T, PetsState>(
         builder: (context, state) {
           if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
+            // return const Center(child: CircularProgressIndicator());
           }
           if (state.error != null) {
             return Text('error ${state.error.toString()}');

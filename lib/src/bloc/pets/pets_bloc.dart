@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PetsBloc extends Bloc<PetsEvents, PetsState> {
   PetsRepository petsRepository;
+  late int page = 0;
+  late int limit = 10;
 
   PetsBloc({required this.petsRepository}) : super(const PetsState.empty()) {
     on<LoadPetsListEvent>(
@@ -20,12 +22,25 @@ class PetsBloc extends Bloc<PetsEvents, PetsState> {
 
         /// call api
         try {
-          final result = await petsRepository.loadListOfPets();
+          print('loading data');
+          print('page: $page');
+
+          final result = await petsRepository.loadListOfPets(limit: limit, page: page);
+
+          var dataList = state.data;
+
+          if (dataList != null) {
+            dataList.addAll(result!);
+          } else {
+            dataList = result;
+          }
+          print('length: ${dataList!.length}');
+          page++;
           emit(
             PetsState(
               isLoading: false,
               error: null,
-              data: result,
+              data: dataList,
             ),
           );
         } catch (e) {

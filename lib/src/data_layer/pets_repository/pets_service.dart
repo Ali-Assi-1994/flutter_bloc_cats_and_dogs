@@ -16,11 +16,13 @@ class PetsService {
 
   Future<ApiResult> loadListOfPets({
     int? limit = 10,
+    int? page = 0,
   }) async {
     return petApiClient.get(
       url: '$baseUrl/v1/images/search',
       queryParameters: {
         'limit': limit,
+        'page': page,
       },
     );
   }
