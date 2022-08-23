@@ -29,12 +29,19 @@ class PetsListPage<T extends PetsBloc> extends StatelessWidget {
             return Text('error ${state.error.toString()}');
           }
           if (state.data != null && state.data!.isNotEmpty) {
-            return ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-              itemCount: state.data!.length,
-              itemBuilder: (context, index) {
-                return PetItemBuilder(pet: state.data![index]);
-              },
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                    itemCount: state.data!.length,
+                    itemBuilder: (context, index) {
+                      return PetItemBuilder(pet: state.data![index]);
+                    },
+                  ),
+                ),
+                if (state.isLoading) const Center(child: CircularProgressIndicator()),
+              ],
             );
           }
           return Container();
