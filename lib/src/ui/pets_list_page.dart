@@ -12,18 +12,14 @@ class PetsListPage<T extends PetsBloc> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<T>().add(const LoadPetsListEvent());
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<T>().add(const LoadPetsListEvent());
-        },
-        child: const Icon(Icons.add),
-      ),
       body: BlocBuilder<T, PetsState>(
         builder: (context, state) {
-          if (state.isLoading) {
-            // return const Center(child: CircularProgressIndicator());
+          if (!state.isLoading && (state.data == null || state.data!.isEmpty)) {
+            context.read<T>().add(const LoadPetsListEvent());
+          }
+          if (state.isLoading && (state.data == null || state.data!.isEmpty)) {
+            return const Center(child: CircularProgressIndicator());
           }
           if (state.error != null) {
             return Text('error ${state.error.toString()}');
@@ -32,15 +28,30 @@ class PetsListPage<T extends PetsBloc> extends StatelessWidget {
             return Column(
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-                    itemCount: state.data!.length,
-                    itemBuilder: (context, index) {
-                      return PetItemBuilder(pet: state.data![index]);
+                  child: NotificationListener<ScrollEndNotification>(
+                    onNotification: (ScrollEndNotification scrollInfo) {
+                      if (!state.isLoading && scrollInfo.metrics.pixels >= scrollInfo.metrics.maxScrollExtent - 100) {
+                        context.read<T>().add(const LoadPetsListEvent());
+                        return true;
+                      }
+                      return false;
                     },
+                    child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                      itemCount: state.data!.length,
+                      itemBuilder: (context, index) {
+                        return PetItemBuilder(pet: state.data![index]);
+                      },
+                    ),
                   ),
                 ),
-                if (state.isLoading) const Center(child: CircularProgressIndicator()),
+                if (state.isLoading)
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 30),
+                      child: CircularProgressIndicator(color: Colors.black),
+                    ),
+                  ),
               ],
             );
           }
