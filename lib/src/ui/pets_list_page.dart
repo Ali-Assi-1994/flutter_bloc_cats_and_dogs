@@ -1,9 +1,8 @@
-import 'package:dogs_and_cats/src/bloc/pets/breed_model.dart';
-import 'package:dogs_and_cats/src/bloc/pets/pet_model.dart';
+import 'package:dogs_and_cats/src/bloc/pets/models/breed_model.dart';
+import 'package:dogs_and_cats/src/bloc/pets/models/pet_model.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_bloc.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_events.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -25,6 +24,7 @@ class PetsListPage<T extends PetsBloc> extends StatelessWidget {
           }
           if (state.data != null && state.data!.isNotEmpty) {
             return ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
               itemCount: state.data!.length,
               itemBuilder: (context, index) {
                 return PetItemBuilder(pet: state.data![index]);
@@ -49,9 +49,22 @@ class PetItemBuilder extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 18.0),
       child: Column(
         children: [
+          const SizedBox(height: 50),
           PetImageBuilder(imageUrl: pet.url),
           PetBreedsTagsBuilder(breeds: pet.breeds!),
-          Text(pet.breeds != null && pet.breeds!.isNotEmpty ? pet.breeds!.first!.temperament??'' :''),
+          PetTemperamentText(pet: pet),
+          Text(
+            pet.breeds != null && pet.breeds!.isNotEmpty ? pet.breeds!.first!.bredFor ?? '' : "",
+            style: TextStyle(color: Colors.yellow),
+          ),
+          Text(
+            pet.breeds != null && pet.breeds!.isNotEmpty ? pet.breeds!.first!.origin ?? '' : "",
+            style: TextStyle(color: Colors.red),
+          ),
+          Text(
+            pet.breeds != null && pet.breeds!.isNotEmpty ? pet.breeds!.first!.description ?? '' : "",
+            style: TextStyle(color: Colors.blue),
+          ),
           const SizedBox(height: 18),
         ],
       ),
@@ -69,24 +82,30 @@ class PetImageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      imageUrl,
-      loadingBuilder: (context, child, loadingProgress) {
-        if (loadingProgress == null) return child;
-        return SizedBox(
-          width: 90,
-          height: 90,
-          child: Shimmer.fromColors(
-            baseColor: const Color(0xFFF4F4F4),
-            direction: ShimmerDirection.rtl,
-            highlightColor: const Color(0xFFDADADA),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Image.asset("assets/icons/paws.png"),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10.0),
+      child: Image.network(
+        imageUrl,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Padding(
+            padding: const EdgeInsets.all(80.0),
+            child: SizedBox(
+              width: 90,
+              height: 90,
+              child: Shimmer.fromColors(
+                baseColor: const Color(0xFFF4F4F4),
+                direction: ShimmerDirection.rtl,
+                highlightColor: const Color(0xFFDADADA),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Image.asset("assets/icons/paws.png"),
+                ),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -118,5 +137,35 @@ class PetBreedsTagsBuilder extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class PetTemperamentText extends StatelessWidget {
+  final Pet pet;
+
+  const PetTemperamentText({
+    Key? key,
+    required this.pet,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Flexible(child: Text(extractTemperamentFromBreeds(pet.breeds))),
+      ],
+    );
+  }
+
+  String extractTemperamentFromBreeds(List<Breed?>? breeds) {
+    String s = '';
+    if (breeds != null && pet.breeds!.isNotEmpty) {
+      for (var breed in breeds) {
+        if (breed!.temperament != null) {
+          s = s + breed.temperament!;
+        }
+      }
+    }
+    return s;
   }
 }

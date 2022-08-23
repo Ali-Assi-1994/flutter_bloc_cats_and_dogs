@@ -1,4 +1,3 @@
-import 'package:dogs_and_cats/src/bloc/pets/pet_model.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_events.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_state.dart';
 import 'package:dogs_and_cats/src/data_layer/pets_repository/pets_repository.dart';

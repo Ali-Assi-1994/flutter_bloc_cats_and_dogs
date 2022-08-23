@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:dogs_and_cats/src/bloc/pets/breed_model.dart';
+import 'package:dogs_and_cats/src/bloc/pets/models/breed_model.dart';
 
 List<Pet> petsListFromJson(String str) => List<Pet>.from(json.decode(str).map((x) => Pet.fromJson(x)));
+
 String petsListToJson(List<Pet> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Pet {

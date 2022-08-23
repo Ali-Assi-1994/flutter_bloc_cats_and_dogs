@@ -44,7 +44,7 @@ class Breed {
 
   Weight? weight;
   Weight? height;
-  int? id;
+  String? id;
   String? name;
   String? cfaUrl;
   String? vetstreetUrl;
@@ -86,7 +86,7 @@ class Breed {
   Breed copyWith({
     Weight? weight,
     Weight? height,
-    int? id,
+    String? id,
     String? name,
     String? cfaUrl,
     String? vetstreetUrl,
@@ -171,7 +171,7 @@ class Breed {
   factory Breed.fromJson(Map<String, dynamic> json) => Breed(
         weight: json["weight"] == null ? null : Weight.fromJson(json["weight"]),
         height: json["height"] == null ? null : Weight.fromJson(json["height"]),
-        id: json["id"],
+        id: json["id"].toString(),
         name: json["name"],
         cfaUrl: json["cfa_url"],
         vetstreetUrl: json["vetstreet_url"],

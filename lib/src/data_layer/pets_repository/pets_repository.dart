@@ -1,4 +1,4 @@
-import 'package:dogs_and_cats/src/bloc/pets/pet_model.dart';
+import 'package:dogs_and_cats/src/bloc/pets/models/pet_model.dart';
 import 'package:dogs_and_cats/src/data_layer/Dio/api.dart';
 import 'package:dogs_and_cats/src/data_layer/pets_repository/pets_service.dart';
 import 'package:dogs_and_cats/src/utils/constants.dart';

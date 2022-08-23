@@ -16,7 +16,10 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            toolbarHeight: 10,
+          ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (selectedTab) {
               switch (selectedTab) {
