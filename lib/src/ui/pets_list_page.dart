@@ -20,7 +20,7 @@ class PetsListPage<T extends PetsBloc> extends StatelessWidget {
             context.read<T>().add(const LoadPetsListEvent());
           }
           if (state.isLoading && (state.data == null || state.data!.isEmpty)) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Colors.black));
           }
           if (state.error != null) {
             return Text('error ${state.error.toString()}');
@@ -39,20 +39,22 @@ class PetsListPage<T extends PetsBloc> extends StatelessWidget {
                     },
                     child: ListView.builder(
                       physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-                      itemCount: state.data!.length,
+                      itemCount: state.data!.length + (state.isLoading ? 1 : 0),
                       itemBuilder: (context, index) {
-                        return PetItemBuilder(pet: state.data![index]);
+                        if (index == state.data!.length) {
+                          return const Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 30),
+                              child: CircularProgressIndicator(color: Colors.black),
+                            ),
+                          );
+                        } else {
+                          return PetItemBuilder(pet: state.data![index]);
+                        }
                       },
                     ),
                   ),
                 ),
-                if (state.isLoading)
-                  const Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 30),
-                      child: CircularProgressIndicator(color: Colors.black),
-                    ),
-                  ),
               ],
             );
           }
@@ -74,23 +76,10 @@ class PetItemBuilder extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 18.0),
       child: Column(
         children: [
-          const SizedBox(height: 50),
+          const SizedBox(height: 28),
           PetImageBuilder(imageUrl: pet.url),
           PetBreedsTagsBuilder(breeds: pet.breeds!),
           PetTemperamentText(pet: pet),
-          Text(
-            pet.breeds != null && pet.breeds!.isNotEmpty ? pet.breeds!.first!.bredFor ?? '' : "",
-            style: TextStyle(color: Colors.yellow),
-          ),
-          Text(
-            pet.breeds != null && pet.breeds!.isNotEmpty ? pet.breeds!.first!.origin ?? '' : "",
-            style: TextStyle(color: Colors.red),
-          ),
-          Text(
-            pet.breeds != null && pet.breeds!.isNotEmpty ? pet.breeds!.first!.description ?? '' : "",
-            style: TextStyle(color: Colors.blue),
-          ),
-          const SizedBox(height: 18),
         ],
       ),
     );
@@ -111,6 +100,8 @@ class PetImageBuilder extends StatelessWidget {
       borderRadius: BorderRadius.circular(10.0),
       child: Image.network(
         imageUrl,
+        height: 250,
+        fit: BoxFit.cover,
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
           return Padding(
@@ -182,4 +173,3 @@ class PetTemperamentText extends StatelessWidget {
     );
   }
 }
-
