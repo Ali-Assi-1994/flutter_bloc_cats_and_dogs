@@ -16,10 +16,7 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            toolbarHeight: 10,
-          ),
+          appBar: AppBar(backgroundColor: Colors.black, toolbarHeight: 10),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (selectedTab) {
               switch (selectedTab) {
@@ -32,16 +29,18 @@ class HomePage extends StatelessWidget {
               }
             },
             currentIndex: state.selectedTab,
+            showUnselectedLabels: false,
+            showSelectedLabels: false,
             items: [
               BottomNavigationBarItem(
                 backgroundColor: Colors.white,
                 label: S.of(context).dogs,
-                icon: const Icon(Icons.height),
+                icon: Image.asset('assets/icons/dog.png', height: 35),
               ),
               BottomNavigationBarItem(
                 backgroundColor: Colors.white,
                 label: S.of(context).cats,
-                icon: const Icon(Icons.subject),
+                icon: Image.asset('assets/icons/cat.png', height: 35),
               ),
             ],
           ),
