@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bloc">
+    package="com.catsdogs.bloc">
    <application
         android:label="bloc"
         android:name="${applicationName}"
