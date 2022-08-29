@@ -3,6 +3,7 @@ import 'package:dogs_and_cats/src/bloc/pets/models/pet_model.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_bloc.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_events.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_state.dart';
+import 'package:dogs_and_cats/src/utils/extinstions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -176,20 +177,9 @@ class PetTemperamentText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Flexible(child: Text(extractTemperamentFromBreeds(pet.breeds))),
+        Flexible(child: Text(pet.breeds!.extractTemperamentFromBreeds())),
       ],
     );
   }
-
-  String extractTemperamentFromBreeds(List<Breed?>? breeds) {
-    String s = '';
-    if (breeds != null && pet.breeds!.isNotEmpty) {
-      for (var breed in breeds) {
-        if (breed!.temperament != null) {
-          s = s + breed.temperament!;
-        }
-      }
-    }
-    return s;
-  }
 }
+
