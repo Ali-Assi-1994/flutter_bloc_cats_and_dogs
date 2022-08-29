@@ -22,8 +22,6 @@ class PetsBloc extends Bloc<PetsEvents, PetsState> {
 
         /// call api
         try {
-          print('loading data');
-          print('page: $page');
           final result = await petsRepository.loadListOfPets(limit: limit, page: page);
           var dataList = state.data;
           if (dataList != null) {
@@ -31,7 +29,6 @@ class PetsBloc extends Bloc<PetsEvents, PetsState> {
           } else {
             dataList = result;
           }
-          print('length: ${dataList!.length}');
           page++;
           emit(
             PetsState(
