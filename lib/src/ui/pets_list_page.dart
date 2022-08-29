@@ -14,6 +14,7 @@ class PetsListPage<T extends PetsBloc> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocBuilder<T, PetsState>(
         builder: (context, state) {
           if (!state.isLoading && (state.data == null || state.data!.isEmpty)) {
