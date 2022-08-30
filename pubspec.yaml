@@ -19,6 +19,7 @@ dependencies:
   shimmer: ^2.0.0
   firebase_core: ^1.21.1
   firebase_auth: ^3.7.0
+  flutter_hooks: ^0.18.5+1
 
 dev_dependencies:
   flutter_test:
