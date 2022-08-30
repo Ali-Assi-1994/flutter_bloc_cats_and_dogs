@@ -17,7 +17,7 @@ class EmailTextFieldWidget extends StatelessWidget {
         decoration: const InputDecoration(
           label: Text(
             'Email',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black,fontSize: 14),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
@@ -67,7 +67,7 @@ class PasswordTextFieldWidget extends StatelessWidget {
         decoration: const InputDecoration(
           label: Text(
             'Password',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black,fontSize: 14),
           ),
           enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)), borderSide: BorderSide(color: Colors.black38)),
           focusedBorder: OutlineInputBorder(

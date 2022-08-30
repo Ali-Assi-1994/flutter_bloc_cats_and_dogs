@@ -17,7 +17,7 @@ class SignupPage extends HookWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (_, AuthState state) {
         if (state is LoggedInState) {
-          Navigator.of(context).pushNamed('home');
+          Navigator.of(context).pushReplacementNamed('home');
         }
       },
       builder: (newContext, AuthState state){

@@ -1,7 +1,7 @@
 import 'package:dogs_and_cats/src/bloc/pets/models/pet_model.dart';
 import 'package:dogs_and_cats/src/data_layer/Dio/api.dart';
 import 'package:dogs_and_cats/src/data_layer/pets_repository/pets_service.dart';
-import 'package:dogs_and_cats/src/utils/constants.dart';
+import 'package:dogs_and_cats/src/utils/app_secrets.dart';
 
 class PetsRepository {
   PetsRepository();
@@ -23,13 +23,13 @@ class PetsRepository {
 class DogsRepo extends PetsRepository {
   DogsRepo() {
     baseUrl = 'https://api.thedogapi.com/';
-    apiKey = Constants.dogApiKey;
+    apiKey = AppSecrets.dogApiKey;
   }
 }
 
 class CatsRepo extends PetsRepository {
   CatsRepo() {
     baseUrl = 'https://api.thecatapi.com/';
-    apiKey = Constants.catApiKey;
+    apiKey = AppSecrets.catApiKey;
   }
 }

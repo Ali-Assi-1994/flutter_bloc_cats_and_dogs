@@ -15,11 +15,10 @@ class LoginPage extends HookWidget {
     final emailTextController = useTextEditingController();
     final passwordTextController = useTextEditingController();
 
-
     return  BlocListener<AuthBloc, AuthState>(
       listener: (context, AuthState state) {
         if (state is LoggedInState) {
-          Navigator.of(context).pushNamed('home');
+          Navigator.of(context).pushReplacementNamed('home');
         }
       },
       child: Builder(
@@ -55,7 +54,7 @@ class LoginPage extends HookWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(newContext).pushNamed('signup');
+                      Navigator.of(newContext).pushReplacementNamed('signup');
                     },
                     child: const Text("Don't have account yet? signup here!"),
                   )
