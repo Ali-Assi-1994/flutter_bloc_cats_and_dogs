@@ -2,6 +2,8 @@ import 'package:dogs_and_cats/src/bloc/auth_bloc/auth_bloc.dart';
 import 'package:dogs_and_cats/src/bloc/auth_bloc/auth_events.dart';
 import 'package:dogs_and_cats/src/bloc/auth_bloc/auth_state.dart';
 import 'package:dogs_and_cats/src/ui/widgets/buttons_widgets.dart';
+import 'package:dogs_and_cats/src/ui/widgets/dialogs/auth_error_dialog.dart';
+import 'package:dogs_and_cats/src/ui/widgets/dialogs/loading/loading_dialog.dart';
 import 'package:dogs_and_cats/src/ui/widgets/text_fields_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,11 +18,27 @@ class SignupPage extends HookWidget {
     final passwordTextController = useTextEditingController();
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (_, AuthState state) {
+        if (state.isLoading) {
+          LoadingDialog.instance().show(
+            context: context,
+            text: 'Loading...',
+          );
+        } else {
+          LoadingDialog.instance().hide();
+        }
+        final authError = state.authError;
+        if (authError != null) {
+          showAuthError(
+            authError: authError,
+            context: context,
+          );
+        }
+
         if (state is LoggedInState) {
           Navigator.of(context).pushReplacementNamed('home');
         }
       },
-      builder: (newContext, AuthState state){
+      builder: (newContext, AuthState state) {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
@@ -42,28 +60,23 @@ class SignupPage extends HookWidget {
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   onPressed: () {
-                    print('Signup....');
                     newContext.read<AuthBloc>().add(
-                      RegisterEvent(
-                        email: emailTextController.text,
-                        password: passwordTextController.text,
-                      ),
-                    );
+                          RegisterEvent(
+                            email: emailTextController.text,
+                            password: passwordTextController.text,
+                          ),
+                        );
                   },
                 ),
-
                 TextButton(
                   onPressed: () => Navigator.of(context).pushReplacementNamed('login'),
                   child: const Text("Already have an account? login here!"),
                 )
-
               ],
             ),
           ),
         );
       },
-
     );
   }
 }
-
