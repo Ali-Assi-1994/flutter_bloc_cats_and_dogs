@@ -1,5 +1,6 @@
 import 'package:dogs_and_cats/src/bloc/auth_bloc/auth_events.dart';
 import 'package:dogs_and_cats/src/bloc/auth_bloc/auth_state.dart';
+import 'package:dogs_and_cats/src/utils/auth_errors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
         emit(
           const LoggedOutState(
             isLoading: true,
-            authError: false,
+            authError: null,
           ),
         );
 
@@ -32,11 +33,11 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
               user: user,
             ),
           );
-        } catch (error) {
+        } on FirebaseAuthException catch (error) {
           emit(
             LoggedOutState(
               isLoading: false,
-              authError: error,
+              authError: AuthError.from(error),
             ),
           );
         }
@@ -49,7 +50,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
         emit(
           const LoggedOutState(
             isLoading: true,
-            authError: false,
+            authError: null,
           ),
         );
 
@@ -66,11 +67,11 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
               user: user,
             ),
           );
-        } catch (error) {
+        } on FirebaseAuthException catch (error) {
           emit(
             LoggedOutState(
               isLoading: false,
-              authError: error,
+              authError: AuthError.from(error),
             ),
           );
         }

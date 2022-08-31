@@ -48,9 +48,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'Dogs & Cats',
-          theme: ThemeData(
-            primaryColor: Colors.black,
-          ),
+          theme: ThemeData(primaryColor: Colors.black),
           routes: {
             'login': (context) => const LoginPage(),
             'signup': (context) => const SignupPage(),

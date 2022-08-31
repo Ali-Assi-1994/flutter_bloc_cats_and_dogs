@@ -1,11 +1,12 @@
 import 'dart:async';
+
 import 'package:dogs_and_cats/src/ui/widgets/dialogs/loading/loading_dialog_controller.dart';
 import 'package:flutter/material.dart';
 
 class LoadingDialog {
   LoadingDialog._sharedInstance();
 
-  static final LoadingDialog _shared = LoadingDialog._sharedInstance();
+  static late final  LoadingDialog _shared = LoadingDialog._sharedInstance();
 
   factory LoadingDialog.instance() => _shared;
 

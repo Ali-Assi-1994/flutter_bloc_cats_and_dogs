@@ -51,6 +51,12 @@ class SignupPage extends HookWidget {
                     );
                   },
                 ),
+
+                TextButton(
+                  onPressed: () => Navigator.of(context).pushReplacementNamed('login'),
+                  child: const Text("Already have an account? login here!"),
+                )
+
               ],
             ),
           ),

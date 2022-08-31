@@ -1,10 +1,11 @@
+import 'package:dogs_and_cats/src/utils/auth_errors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' show immutable;
 
 @immutable
 abstract class AuthState {
   final bool isLoading;
-  final Object? authError;
+  final AuthError? authError;
 
   const AuthState({
     required this.isLoading,
@@ -29,7 +30,7 @@ class LoggedInState extends AuthState {
 class LoggedOutState extends AuthState {
   const LoggedOutState({
     required bool isLoading,
-    Object? authError,
+    AuthError? authError,
   }) : super(
           isLoading: isLoading,
           authError: authError,
