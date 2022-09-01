@@ -33,7 +33,6 @@ class SignupPage extends HookWidget {
             context: context,
           );
         }
-
         if (state is LoggedInState) {
           Navigator.of(context).pushReplacementNamed('home');
         }

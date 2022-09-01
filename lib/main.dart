@@ -8,6 +8,7 @@ import 'package:dogs_and_cats/src/data_layer/pets_repository/pets_repository.dar
 import 'package:dogs_and_cats/src/ui/home_page.dart';
 import 'package:dogs_and_cats/src/ui/login_page.dart';
 import 'package:dogs_and_cats/src/ui/signup_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  // await FirebaseAuth.instance.signOut();
   runApp(const MyApp());
 }
 
@@ -54,7 +55,7 @@ class MyApp extends StatelessWidget {
             'signup': (context) => const SignupPage(),
             'home': (context) => const HomePage(),
           },
-          home: const LoginPage(),
+          home: FirebaseAuth.instance.currentUser == null ? const LoginPage() : const HomePage(),
           localizationsDelegates: const [S.delegate],
           supportedLocales: S.delegate.supportedLocales,
         ),

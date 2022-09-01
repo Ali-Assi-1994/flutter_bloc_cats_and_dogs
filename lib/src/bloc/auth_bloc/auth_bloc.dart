@@ -27,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
             password: event.password,
           );
           final user = userCredential.user!;
+
           emit(
             LoggedInState(
               isLoading: false,
