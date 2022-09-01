@@ -21,6 +21,8 @@ dependencies:
   firebase_auth: ^3.7.0
   flutter_hooks: ^0.18.5+1
   shared_preferences: ^2.0.15
+  bloc_test: ^9.1.0
+  firebase_auth_mocks: ^0.8.5+1
 
 dev_dependencies:
   flutter_test:
