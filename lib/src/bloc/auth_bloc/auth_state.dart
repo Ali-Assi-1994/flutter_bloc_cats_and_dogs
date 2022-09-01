@@ -24,6 +24,23 @@ class LoggedInState extends AuthState {
           isLoading: isLoading,
           authError: null,
         );
+
+  @override
+  bool operator ==(other) {
+    final otherClass = other;
+    if (otherClass is LoggedInState) {
+      return isLoading == otherClass.isLoading && user == otherClass.user && authError == otherClass.authError;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        isLoading,
+        user.hashCode,
+        authError,
+      );
 }
 
 @immutable
@@ -35,4 +52,20 @@ class LoggedOutState extends AuthState {
           isLoading: isLoading,
           authError: authError,
         );
+
+  @override
+  bool operator ==(other) {
+    final otherClass = other;
+    if (otherClass is LoggedOutState) {
+      return isLoading == otherClass.isLoading && authError == otherClass.authError;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        isLoading,
+        authError,
+      );
 }
