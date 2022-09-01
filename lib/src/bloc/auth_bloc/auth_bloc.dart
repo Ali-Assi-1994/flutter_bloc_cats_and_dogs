@@ -57,7 +57,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
 
         /// try to register user
         try {
-          final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          final userCredential = await event.firebaseAuth.createUserWithEmailAndPassword(
             email: event.email,
             password: event.password,
           );

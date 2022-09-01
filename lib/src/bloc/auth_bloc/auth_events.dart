@@ -23,9 +23,11 @@ class LoginEvent implements AuthEvents {
 class RegisterEvent implements AuthEvents {
   final String email;
   final String password;
+  final FirebaseAuth firebaseAuth;
 
   const RegisterEvent({
     required this.email,
     required this.password,
+    required this.firebaseAuth,
   });
 }

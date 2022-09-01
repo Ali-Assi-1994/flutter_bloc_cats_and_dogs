@@ -15,9 +15,6 @@ void main() {
       setUp(() {
         bloc = AuthBloc();
       });
-      String testEmail = 'test@course.bloc';
-      String testUid = 'testUid';
-      String testName = 'Ali';
 
       blocTest<AuthBloc, AuthState>(
         'AuthBloc init State',
@@ -31,6 +28,10 @@ void main() {
       );
 
       /// test login
+      String testEmail = 'test@course.bloc';
+      String testUid = 'testUid';
+      String testName = 'Ali';
+
       final user = MockUser(
         isAnonymous: false,
         uid: testUid,
@@ -38,7 +39,7 @@ void main() {
         displayName: testName,
       );
 
-      final auth = MockFirebaseAuth(
+      final authLogin = MockFirebaseAuth(
         mockUser: user,
         signedIn: false,
       );
@@ -47,7 +48,7 @@ void main() {
         'Test successful login',
         build: () => bloc,
         act: (bloc) => bloc.add(
-          LoginEvent(email: '', password: '', firebaseAuth: auth),
+          LoginEvent(email: '', password: '', firebaseAuth: authLogin),
         ),
         expect: () => [
           const LoggedOutState(isLoading: true),
@@ -55,19 +56,63 @@ void main() {
         ],
       );
 
-      final authWithException = MockFirebaseAuth(
+      final authWithLoginException = MockFirebaseAuth(
         mockUser: user,
         signedIn: false,
         authExceptions: AuthExceptions(
           signInWithEmailAndPassword: FirebaseAuthException(code: 'invalid-email'),
         ),
       );
-
       blocTest<AuthBloc, AuthState>(
         'Test failed login: invalid-email',
         build: () => bloc,
         act: (bloc) => bloc.add(
-          LoginEvent(email: '', password: '', firebaseAuth: authWithException),
+          LoginEvent(email: '', password: '', firebaseAuth: authWithLoginException),
+        ),
+        expect: () => [
+          const LoggedOutState(isLoading: true),
+          LoggedOutState(isLoading: false, authError: AuthError.from(FirebaseAuthException(code: 'invalid-email'))),
+        ],
+      );
+
+      /// test sign up
+
+      final mockSignUpUser = MockUser(
+        uid: 'mock_uid',
+        email: testEmail,
+        displayName: 'Mock User',
+      );
+
+      final authSignup = MockFirebaseAuth(
+        mockUser: mockSignUpUser,
+        signedIn: false,
+      );
+
+      blocTest<AuthBloc, AuthState>(
+        'Test successful signup',
+        build: () => bloc,
+        act: (bloc) => bloc.add(
+          RegisterEvent(email: testEmail, password: '', firebaseAuth: authSignup),
+        ),
+        expect: () => [
+          const LoggedOutState(isLoading: true),
+          LoggedInState(isLoading: false, user: mockSignUpUser),
+        ],
+      );
+
+      final authWithSignupException = MockFirebaseAuth(
+        mockUser: mockSignUpUser,
+        signedIn: false,
+        authExceptions: AuthExceptions(
+          createUserWithEmailAndPassword: FirebaseAuthException(code: 'invalid-email'),
+        ),
+      );
+
+      blocTest<AuthBloc, AuthState>(
+        'Test failed signup: invalid-email',
+        build: () => bloc,
+        act: (bloc) => bloc.add(
+          RegisterEvent(email: '', password: '', firebaseAuth: authWithSignupException),
         ),
         expect: () => [
           const LoggedOutState(isLoading: true),

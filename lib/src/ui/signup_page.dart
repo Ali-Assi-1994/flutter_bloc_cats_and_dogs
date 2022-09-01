@@ -5,6 +5,7 @@ import 'package:dogs_and_cats/src/ui/widgets/buttons_widgets.dart';
 import 'package:dogs_and_cats/src/ui/widgets/dialogs/auth_error_dialog.dart';
 import 'package:dogs_and_cats/src/ui/widgets/dialogs/loading/loading_dialog.dart';
 import 'package:dogs_and_cats/src/ui/widgets/text_fields_widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -63,6 +64,7 @@ class SignupPage extends HookWidget {
                           RegisterEvent(
                             email: emailTextController.text,
                             password: passwordTextController.text,
+                            firebaseAuth: FirebaseAuth.instance,
                           ),
                         );
                   },
