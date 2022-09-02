@@ -15,17 +15,14 @@ void main() {
       setUp(() {
         bloc = AuthBloc();
       });
-
-      blocTest<AuthBloc, AuthState>(
-        'AuthBloc init State',
-        build: () => bloc,
-        verify: (bloc) =>
-            bloc.state ==
+      test('initial state', () {
+        expect(
+            bloc.state,
             const LoggedOutState(
               isLoading: false,
               authError: null,
-            ),
-      );
+            ));
+      });
 
       /// test login
       String testEmail = 'test@course.bloc';

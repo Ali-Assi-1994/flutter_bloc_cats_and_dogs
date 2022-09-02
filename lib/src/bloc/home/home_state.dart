@@ -7,4 +7,17 @@ class HomeState {
   const HomeState({
     required this.selectedTab,
   });
+
+  @override
+  bool operator ==(other) {
+    final otherClass = other;
+    if (otherClass is HomeState) {
+      return selectedTab == otherClass.selectedTab;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => selectedTab.hashCode;
 }
