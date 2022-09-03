@@ -15,7 +15,7 @@ void main() {
       setUp(() {
         bloc = AuthBloc();
       });
-      test('initial state', () {
+      test('AuthBloc initial state', () {
         expect(
             bloc.state,
             const LoggedOutState(
