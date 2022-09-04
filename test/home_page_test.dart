@@ -36,24 +36,6 @@ void main() {
           HomeState(selectedTab: Constants.dogsTabID),
         ],
       );
-
-      blocTest<HomeBloc, HomeState>(
-        'test select dogs tab',
-        build: () => bloc,
-        act: (bloc) => bloc.add(const SelectedDogsTabEvent()),
-        expect: () => const [
-          HomeState(selectedTab: Constants.dogsTabID),
-        ],
-      );
-
-      blocTest<HomeBloc, HomeState>(
-        'test select cats tab',
-        build: () => bloc,
-        act: (bloc) => bloc.add(const SelectedCatsTabEvent()),
-        expect: () => const [
-          HomeState(selectedTab: Constants.catsTabID),
-        ],
-      );
     },
   );
 }

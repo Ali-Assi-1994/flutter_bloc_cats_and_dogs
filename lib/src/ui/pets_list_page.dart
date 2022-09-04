@@ -3,7 +3,7 @@ import 'package:dogs_and_cats/src/bloc/pets/models/pet_model.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_bloc.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_events.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_state.dart';
-import 'package:dogs_and_cats/src/utils/extinstions.dart';
+import 'package:dogs_and_cats/src/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';

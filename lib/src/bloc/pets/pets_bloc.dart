@@ -42,7 +42,7 @@ class PetsBloc extends Bloc<PetsEvents, PetsState> {
             PetsState(
               isLoading: false,
               error: e,
-              data: null,
+              data: state.data,
             ),
           );
         }

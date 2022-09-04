@@ -36,4 +36,12 @@ class Pet {
         "width": width,
         "height": height,
       };
+
+  @override
+  bool operator ==(covariant Pet other) {
+    return id == other.id && url == other.url && width == other.width && height == other.height;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, url, width, height, breeds);
 }

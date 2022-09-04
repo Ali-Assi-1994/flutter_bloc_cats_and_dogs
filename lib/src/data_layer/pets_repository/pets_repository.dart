@@ -10,7 +10,7 @@ class PetsRepository {
   late String apiKey;
   late PetsService service = PetsService(baseUrl: baseUrl, apiKey: apiKey);
 
-  Future<List<dynamic>?> loadListOfPets({int? limit = 10, int? page = 0 }) async {
+  Future<List<Pet>?> loadListOfPets({int? limit = 10, int? page = 0 }) async {
     ApiResult result = await service.loadListOfPets(limit: limit,page: page);
     if (result.type == ApiResultType.success) {
       return result.data.map((i) => Pet.fromJson(i)).toList();
