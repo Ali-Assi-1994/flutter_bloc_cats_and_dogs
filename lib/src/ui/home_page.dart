@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          body: state.selectedTab == 0 ? const PetsListPage<DogsBloc>() : const PetsListPage<CatsBloc>(),
+          body: state.selectedTab == 0 ? const PetsListPage<DogsBloc>() : const PetsListPage<DogsBloc>(),
         );
       },
     );

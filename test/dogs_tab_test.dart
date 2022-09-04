@@ -1,24 +1,24 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:dogs_and_cats/src/bloc/cats/cats_bloc.dart';
+import 'package:dogs_and_cats/src/bloc/dogs/dogs_bloc.dart';
 import 'package:dogs_and_cats/src/bloc/pets/models/pet_model.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_events.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_state.dart';
 import 'package:dogs_and_cats/src/data_layer/pets_repository/pets_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'cats_mocked_data.dart';
+import 'dogs_mocked_data.dart';
 
-class MockCatsRepo extends PetsRepository {
-  MockCatsRepo() {
+class MockDogsRepo extends PetsRepository {
+  MockDogsRepo() {
     baseUrl = '';
     apiKey = '';
   }
 
   @override
   Future<List<Pet>?> loadListOfPets({int? limit = 10, int? page = 0}) async {
-    late List<Pet> cats;
+    late List<Pet> dogs;
     try {
-      cats = catsMockedJsonList
+      dogs = dogsMockedJsonList
           .map(
             (i) => Pet.fromJson(i),
           )
@@ -27,28 +27,26 @@ class MockCatsRepo extends PetsRepository {
     } catch (e) {
       throw (rangeError);
     }
-    return cats;
+    return dogs;
   }
 }
-
-RangeError rangeError = RangeError.range(50, 40, 50, 'end', 'Invalid Value');
-
+RangeError rangeError = RangeError.range(50, 40, 50,'end','Invalid Value');
 void main() {
   group(
-    'Testing CatsBloc',
+    'Testing DogsBloc',
     () {
-      late CatsBloc bloc;
+      late DogsBloc bloc;
       setUp(() {
-        bloc = CatsBloc(petsRepository: MockCatsRepo());
+        bloc = DogsBloc(petsRepository: MockDogsRepo());
       });
 
       test(
-        'Cats tab initial state',
+        'Dogs tab initial state',
         () => expect(bloc.state, const PetsState.empty()),
       );
 
-      blocTest<CatsBloc, PetsState>(
-        'first time fetch cats data',
+      blocTest<DogsBloc, PetsState>(
+        'first time fetch dogs data',
         build: () => bloc,
         act: (bloc) => bloc.add(const LoadPetsListEvent()),
         expect: () => [
@@ -56,13 +54,13 @@ void main() {
           PetsState(
             isLoading: false,
             error: null,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 10),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 10),
           ),
         ],
       );
 
-      blocTest<CatsBloc, PetsState>(
-        'load more cats data',
+      blocTest<DogsBloc, PetsState>(
+        'load more dogs data',
         build: () => bloc,
         act: (bloc) {
           bloc.add(const LoadPetsListEvent());
@@ -76,55 +74,55 @@ void main() {
           PetsState(
             isLoading: false,
             error: null,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 10),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 10),
           ),
 
           /// second patch
           PetsState(
             isLoading: true,
             error: null,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 10),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 10),
           ),
           PetsState(
             isLoading: false,
             error: null,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 20),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 20),
           ),
 
           /// third patch
           PetsState(
             isLoading: true,
             error: null,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 20),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 20),
           ),
           PetsState(
             isLoading: false,
             error: null,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 30),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 30),
           ),
 
           /// forth  patch
           PetsState(
             isLoading: true,
             error: null,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 30),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 30),
           ),
           PetsState(
             isLoading: false,
             error: null,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 40),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 40),
           ),
 
           /// fifth empty  patch
           PetsState(
             isLoading: true,
             error: null,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 40),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 40),
           ),
           PetsState(
             isLoading: false,
             error: rangeError,
-            data: catsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 40),
+            data: dogsMockedJsonList.map((i) => Pet.fromJson(i)).toList().sublist(0, 40),
           ),
         ],
       );
