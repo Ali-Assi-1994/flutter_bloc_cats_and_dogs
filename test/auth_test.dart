@@ -11,18 +11,7 @@ void main() {
   group(
     'Testing AuthBloc',
     () {
-      late AuthBloc bloc;
-      setUp(() {
-        bloc = AuthBloc();
-      });
-      test('AuthBloc initial state', () {
-        expect(
-            bloc.state,
-            const LoggedOutState(
-              isLoading: false,
-              authError: null,
-            ));
-      });
+      late AuthBloc loginBloc;
 
       /// test login
       String testEmail = 'test@course.bloc';
@@ -35,17 +24,28 @@ void main() {
         email: testEmail,
         displayName: testName,
       );
-
       final authLogin = MockFirebaseAuth(
         mockUser: user,
         signedIn: false,
       );
+      setUp(() {
+        loginBloc = AuthBloc(authLogin);
+      });
+
+      test('AuthBloc initial state', () {
+        expect(
+            loginBloc.state,
+            const LoggedOutState(
+              isLoading: false,
+              authError: null,
+            ));
+      });
 
       blocTest<AuthBloc, AuthState>(
         'Test successful login',
-        build: () => bloc,
-        act: (bloc) => bloc.add(
-          LoginEvent(email: '', password: '', firebaseAuth: authLogin),
+        build: () => loginBloc,
+        act: (loginBloc) => loginBloc.add(
+          const LoginEvent(email: '', password: ''),
         ),
         expect: () => [
           const LoggedOutState(isLoading: true),
@@ -62,9 +62,9 @@ void main() {
       );
       blocTest<AuthBloc, AuthState>(
         'Test failed login: invalid-email',
-        build: () => bloc,
+        build: () => AuthBloc(authWithLoginException),
         act: (bloc) => bloc.add(
-          LoginEvent(email: '', password: '', firebaseAuth: authWithLoginException),
+          const LoginEvent(email: '', password: ''),
         ),
         expect: () => [
           const LoggedOutState(isLoading: true),
@@ -87,9 +87,12 @@ void main() {
 
       blocTest<AuthBloc, AuthState>(
         'Test successful signup',
-        build: () => bloc,
+        build: () => AuthBloc(authSignup),
         act: (bloc) => bloc.add(
-          RegisterEvent(email: testEmail, password: '', firebaseAuth: authSignup),
+          RegisterEvent(
+            email: testEmail,
+            password: '',
+          ),
         ),
         expect: () => [
           const LoggedOutState(isLoading: true),
@@ -107,9 +110,9 @@ void main() {
 
       blocTest<AuthBloc, AuthState>(
         'Test failed signup: invalid-email',
-        build: () => bloc,
+        build: () => AuthBloc(authWithSignupException),
         act: (bloc) => bloc.add(
-          RegisterEvent(email: '', password: '', firebaseAuth: authWithSignupException),
+          const RegisterEvent(email: '', password: ''),
         ),
         expect: () => [
           const LoggedOutState(isLoading: true),

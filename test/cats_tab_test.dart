@@ -3,35 +3,10 @@ import 'package:dogs_and_cats/src/bloc/cats/cats_bloc.dart';
 import 'package:dogs_and_cats/src/bloc/pets/models/pet_model.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_events.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_state.dart';
-import 'package:dogs_and_cats/src/data_layer/pets_repository/pets_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cats_mocked_data.dart';
-
-class MockCatsRepo extends PetsRepository {
-  MockCatsRepo() {
-    baseUrl = '';
-    apiKey = '';
-  }
-
-  @override
-  Future<List<Pet>?> loadListOfPets({int? limit = 10, int? page = 0}) async {
-    late List<Pet> cats;
-    try {
-      cats = catsMockedJsonList
-          .map(
-            (i) => Pet.fromJson(i),
-          )
-          .toList()
-          .sublist(page! * limit!, page * limit + limit);
-    } catch (e) {
-      throw (rangeError);
-    }
-    return cats;
-  }
-}
-
-RangeError rangeError = RangeError.range(50, 40, 50, 'end', 'Invalid Value');
+import 'mocked_repositories.dart';
 
 void main() {
   group(

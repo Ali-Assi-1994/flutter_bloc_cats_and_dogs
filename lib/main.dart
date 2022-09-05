@@ -40,11 +40,11 @@ class MyApp extends StatelessWidget {
           BlocProvider<DogsBloc>(
             create: (context) => DogsBloc(petsRepository: context.read<DogsRepo>()),
           ),
-          BlocProvider<DogsBloc>(
-            create: (context) => DogsBloc(petsRepository: context.read<CatsRepo>()),
+          BlocProvider<CatsBloc>(
+            create: (context) => CatsBloc(petsRepository: context.read<CatsRepo>()),
           ),
           BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(),
+            create: (context) => AuthBloc(FirebaseAuth.instance),
           ),
         ],
         child: MaterialApp(

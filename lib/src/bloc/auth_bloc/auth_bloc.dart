@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthBloc extends Bloc<AuthEvents, AuthState> {
-  AuthBloc()
+  AuthBloc(FirebaseAuth firebaseAuth)
       : super(const LoggedOutState(
           isLoading: false,
           authError: null,
@@ -22,7 +22,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
 
         /// try to login
         try {
-          final userCredential = await event.firebaseAuth.signInWithEmailAndPassword(
+          final userCredential = await firebaseAuth.signInWithEmailAndPassword(
             email: event.email,
             password: event.password,
           );
@@ -57,7 +57,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
 
         /// try to register user
         try {
-          final userCredential = await event.firebaseAuth.createUserWithEmailAndPassword(
+          final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
             email: event.email,
             password: event.password,
           );

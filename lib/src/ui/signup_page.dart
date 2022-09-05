@@ -64,7 +64,6 @@ class SignupPage extends HookWidget {
                           RegisterEvent(
                             email: emailTextController.text,
                             password: passwordTextController.text,
-                            firebaseAuth: FirebaseAuth.instance,
                           ),
                         );
                   },

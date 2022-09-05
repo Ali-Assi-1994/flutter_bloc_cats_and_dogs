@@ -10,12 +10,10 @@ abstract class AuthEvents {
 class LoginEvent implements AuthEvents {
   final String email;
   final String password;
-  final FirebaseAuth firebaseAuth;
 
   const LoginEvent({
     required this.email,
     required this.password,
-    required this.firebaseAuth,
   });
 }
 
@@ -23,11 +21,9 @@ class LoginEvent implements AuthEvents {
 class RegisterEvent implements AuthEvents {
   final String email;
   final String password;
-  final FirebaseAuth firebaseAuth;
 
   const RegisterEvent({
     required this.email,
     required this.password,
-    required this.firebaseAuth,
   });
 }
