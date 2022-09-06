@@ -100,7 +100,6 @@ final dogsMockedJsonList = [
   {"breeds": [], "id": "BJUum6T4X", "url": "https://cdn2.thedogapi.com/images/BJUum6T4X.gif", "width": 500, "height": 280},
   {"breeds": [], "id": "rkq57TpVm", "url": "https://cdn2.thedogapi.com/images/rkq57TpVm.gif", "width": 450, "height": 237},
   {"breeds": [], "id": "HJ5nXpT4Q", "url": "https://cdn2.thedogapi.com/images/HJ5nXpT4Q.gif", "width": 393, "height": 408},
-  {"breeds": [], "id": "h23HQAljB", "url": "https://cdn2.thedogapi.com/images/h23HQAljB_1280.jpg", "width": 1024, "height": 683},
   {
     "breeds": [
       {
@@ -119,6 +118,8 @@ final dogsMockedJsonList = [
     "width": 1669,
     "height": 1377
   },
+  {"breeds": [], "id": "h23HQAljB", "url": "https://cdn2.thedogapi.com/images/h23HQAljB_1280.jpg", "width": 1024, "height": 683},
+
   {
     "breeds": [
       {
@@ -428,25 +429,7 @@ final dogsMockedJsonList = [
     "width": 1080,
     "height": 1080
   },
-  {
-    "breeds": [
-      {
-        "weight": {"imperial": "35 - 65", "metric": "16 - 29"},
-        "height": {"imperial": "23 - 28", "metric": "58 - 71"},
-        "id": 213,
-        "name": "Saluki",
-        "bred_for": "Coursing gazelle and hare",
-        "breed_group": "Hound",
-        "life_span": "12 - 14 years",
-        "temperament": "Aloof, Reserved, Intelligent, Quiet",
-        "reference_image_id": "fjFIuehNo"
-      }
-    ],
-    "id": "12GTwG4Bj",
-    "url": "https://cdn2.thedogapi.com/images/12GTwG4Bj.jpg",
-    "width": 1080,
-    "height": 1080
-  },
+
   {
     "breeds": [
       {
@@ -491,5 +474,25 @@ final dogsMockedJsonList = [
   {"breeds": [], "id": "rPpwljM2L", "url": "https://cdn2.thedogapi.com/images/rPpwljM2L.jpg", "width": 720, "height": 720},
   {"breeds": [], "id": "zuXoeWa3Z", "url": "https://cdn2.thedogapi.com/images/zuXoeWa3Z.jpg", "width": 631, "height": 610},
   {"breeds": [], "id": "6dE0ghECM", "url": "https://cdn2.thedogapi.com/images/6dE0ghECM.jpg", "width": 1242, "height": 1415},
-  {"breeds": [], "id": "jA9lUY08p", "url": "https://cdn2.thedogapi.com/images/jA9lUY08p.jpg", "width": null, "height": null}
-];
+  {"breeds": [], "id": "jA9lUY08p", "url": "https://cdn2.thedogapi.com/images/jA9lUY08p.jpg", "width": null, "height": null},
+  {
+    "breeds": [
+      {
+        "weight": {"imperial": "35 - 65", "metric": "16 - 29"},
+        "height": {"imperial": "23 - 28", "metric": "58 - 71"},
+        "id": 213,
+        "name": "Saluki",
+        "bred_for": "Coursing gazelle and hare",
+        "breed_group": "Hound",
+        "life_span": "12 - 14 years",
+        "temperament": "Aloof, Reserved, Intelligent, Quiet",
+        "reference_image_id": "fjFIuehNo"
+      }
+    ],
+    "id": "12GTwG4Bj",
+    "url": "https://cdn2.thedogapi.com/images/12GTwG4Bj.jpg",
+    "width": 1080,
+    "height": 1080
+  },
+
+  ];

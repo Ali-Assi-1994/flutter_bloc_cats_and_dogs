@@ -6,7 +6,7 @@ import 'dogs_mocked_data.dart';
 
 class MockCatsRepo extends PetsRepository {
   MockCatsRepo() {
-    baseUrl = '';
+    baseUrl = 'catsMockedUrl';
     apiKey = '';
   }
 
@@ -17,7 +17,7 @@ class MockCatsRepo extends PetsRepository {
       cats = catsMockedJsonList
           .map(
             (i) => Pet.fromJson(i),
-      )
+          )
           .toList()
           .sublist(page! * limit!, page * limit + limit);
     } catch (e) {
@@ -27,10 +27,9 @@ class MockCatsRepo extends PetsRepository {
   }
 }
 
-
 class MockDogsRepo extends PetsRepository {
   MockDogsRepo() {
-    baseUrl = '';
+    baseUrl = 'dogsMockedUrl';
     apiKey = '';
   }
 
@@ -41,16 +40,15 @@ class MockDogsRepo extends PetsRepository {
       dogs = dogsMockedJsonList
           .map(
             (i) => Pet.fromJson(i),
-      )
+          )
           .toList()
           .sublist(page! * limit!, page * limit + limit);
     } catch (e) {
       throw (rangeError);
     }
+    print('dogs: ${dogs.length}');
     return dogs;
   }
 }
-
-
 
 RangeError rangeError = RangeError.range(50, 40, 50, 'end', 'Invalid Value');

@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:dogs_and_cats/generated/l10n.dart';
 import 'package:dogs_and_cats/src/bloc/auth_bloc/auth_bloc.dart';
 import 'package:dogs_and_cats/src/bloc/cats/cats_bloc.dart';
@@ -17,7 +18,6 @@ import 'package:flutter_test/flutter_test.dart';
 import '../mocked_repositories.dart';
 
 void main() {
-
   setUpAll(() {
     HttpOverrides.global = null;
   });
@@ -80,7 +80,7 @@ void main() {
     await tester.pumpAndSettle();
 
     var passwordTextFormField = find.byType(PasswordTextFieldWidget);
-    await tester.enterText(passwordTextFormField, "ali.assi");
+    await tester.enterText(passwordTextFormField, "-");
     await tester.pumpAndSettle();
 
     expect(emailTextFormField, findsOneWidget);
