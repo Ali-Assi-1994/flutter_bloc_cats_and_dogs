@@ -46,7 +46,6 @@ class MockDogsRepo extends PetsRepository {
     } catch (e) {
       throw (rangeError);
     }
-    print('dogs: ${dogs.length}');
     return dogs;
   }
 }

@@ -11,7 +11,6 @@ class PetsBloc extends Bloc<PetsEvents, PetsState> {
   PetsBloc({required this.petsRepository}) : super(const PetsState.empty()) {
     on<LoadPetsListEvent>(
       (event, emit) async {
-        print('start loading... ${petsRepository.baseUrl}');
 
         /// start loading
         emit(
@@ -24,7 +23,6 @@ class PetsBloc extends Bloc<PetsEvents, PetsState> {
 
         /// call api
         try {
-          print('page: $page');
           final result = await petsRepository.loadListOfPets(limit: limit, page: page);
           var dataList = state.data;
           if (dataList != null) {
