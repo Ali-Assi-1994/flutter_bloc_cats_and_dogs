@@ -1,3 +1,4 @@
+import 'package:dogs_and_cats/src/bloc/pets/models/pet_model.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_events.dart';
 import 'package:dogs_and_cats/src/bloc/pets/pets_state.dart';
 import 'package:dogs_and_cats/src/data_layer/pets_repository/pets_repository.dart';
@@ -23,7 +24,7 @@ class PetsBloc extends Bloc<PetsEvents, PetsState> {
 
         /// call api
         try {
-          final result = await petsRepository.loadListOfPets(limit: limit, page: page);
+          List<Pet>? result = await petsRepository.loadListOfPets(limit: limit, page: page);
           var dataList = state.data;
           if (dataList != null) {
             dataList.addAll(result!);
