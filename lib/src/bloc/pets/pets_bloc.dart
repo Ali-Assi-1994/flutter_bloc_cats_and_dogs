@@ -25,6 +25,7 @@ class PetsBloc extends Bloc<PetsEvents, PetsState> {
         /// call api
         try {
           List<Pet>? result = await petsRepository.loadListOfPets(limit: limit, page: page);
+          print(page);
           var dataList = state.data;
           if (dataList != null) {
             dataList.addAll(result!);

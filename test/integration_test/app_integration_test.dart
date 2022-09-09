@@ -9,6 +9,8 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  const Duration settleDuration = Duration(seconds: 5);
+
   testWidgets('Test app, user need to login case', (WidgetTester tester) async {
     await app.main();
     await tester.pumpAndSettle();
@@ -30,28 +32,23 @@ void main() {
     expect(loginButton, findsOneWidget);
 
     await tester.tap(loginButton);
-    await tester.pumpAndSettle();
 
     /// home page
-    await tester.pumpAndSettle(Duration(seconds: 5));
+    await tester.pumpAndSettle(settleDuration);
     await tester.tap(find.text('Cats'));
-    await tester.pumpAndSettle(Duration(seconds: 5));
+    await tester.pumpAndSettle(settleDuration);
 
     /// should not load, already loaded
     await tester.tap(find.text('Dogs'));
-    await tester.pumpAndSettle(Duration(seconds: 5));
+    await tester.pumpAndSettle(settleDuration);
 
     /// should not load, already loaded
     await tester.tap(find.text('Cats'));
-    await tester.pumpAndSettle(Duration(seconds: 5));
+    await tester.pumpAndSettle(settleDuration);
 
     await FirebaseAuth.instance.signOut();
-    await tester.pumpAndSettle(Duration(seconds: 5));
-
-
+    await tester.pumpAndSettle();
   });
-
-
 
   testWidgets('Test app, fail to login, then login again and continue', (WidgetTester tester) async {
     await app.main();
@@ -74,16 +71,13 @@ void main() {
     expect(loginButton, findsOneWidget);
 
     await tester.tap(loginButton);
-    await tester.pumpAndSettle();
-    await tester.pumpAndSettle(Duration(seconds: 5));
+    await tester.pumpAndSettle(settleDuration);
 
     var okButton = find.widgetWithText(TextButton, 'OK');
     expect(loginButton, findsOneWidget);
 
     await tester.tap(okButton);
-    await tester.pumpAndSettle();
-    await tester.pumpAndSettle(Duration(seconds: 5));
-
+    await tester.pumpAndSettle(settleDuration);
 
     ///login again
     await tester.enterText(emailTextFormField, 'ali@algooru.com');
@@ -98,22 +92,29 @@ void main() {
     expect(loginButton, findsOneWidget);
 
     await tester.tap(loginButton);
-    await tester.pumpAndSettle();
-    await tester.pumpAndSettle(Duration(seconds: 5));
-
+    await tester.pumpAndSettle(settleDuration);
 
     /// home page
-    await tester.pumpAndSettle(Duration(seconds: 5));
     await tester.tap(find.text('Cats'));
-    await tester.pumpAndSettle(Duration(seconds: 5));
+    await tester.pumpAndSettle(settleDuration);
 
     /// should not load, already loaded
     await tester.tap(find.text('Dogs'));
-    await tester.pumpAndSettle(Duration(seconds: 5));
+    await tester.pumpAndSettle(settleDuration);
 
     /// should not load, already loaded
     await tester.tap(find.text('Cats'));
-    await tester.pumpAndSettle(Duration(seconds: 5));
+    await tester.pumpAndSettle(settleDuration);
   });
 
+  testWidgets('test logged-in user,dogs tap & scroll to load more', (WidgetTester tester) async {
+    await app.main();
+    await tester.pumpAndSettle(settleDuration);
+
+    final Offset point = tester.getCenter(find.byType(ListView));
+    await tester.dragFrom(point, const Offset(0.0, -40000.0));
+
+    await tester.pump();
+    await tester.pumpAndSettle(settleDuration);
+  });
 }
